@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import me.craftersforever.bloodskreaper.Main;
+import me.chrisochs.protectiontime.Main;
 
 public class EntityDamageByEntityListener implements Listener{
 	@EventHandler

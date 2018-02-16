@@ -5,8 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import me.craftersforever.bloodskreaper.Main;
-import me.craftersforever.bloodskreaper.ProtectedPlayer;
+import me.chrisochs.protectiontime.Main;
+import me.chrisochs.protectiontime.ProtectedPlayer;
 
 public class PlayerJoinListener implements Listener{
 

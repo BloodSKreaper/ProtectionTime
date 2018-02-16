@@ -1,4 +1,4 @@
-package me.craftersforever.bloodskreaper;
+package me.chrisochs.protectiontime;
 
 import java.util.Date;
 import java.util.UUID;
