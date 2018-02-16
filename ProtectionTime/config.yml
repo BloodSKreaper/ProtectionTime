@@ -1,0 +1,15 @@
+#Time a player gets protected
+protectiontime: 15 #Input in seconds
+#turn useTitles to false if you want to use the chat as output
+useTitles: false
+#Set to true to allow a protected Player to harm mobs and animals
+canHarmMobs: false
+#You can use Colorcodes: "&"
+#IMPORTANT FOR TITLE OUTPUT (useTitles: true): Use ; to separate the lines
+lang:
+  cooldownstart: "&2Protection time started!;&6%time% seconds!" #You can use %time% for the seconds left
+  cooldown10sec: "&2Time is up soon!;&6%time% seconds left." #You can use %time% for the seconds left
+  cooldownending: "&2Time runs up!;&6%time% seconds left!" #You can use %time% for the seconds left
+  cooldownended: "&4Time is up!;&cYou are now vulnerable!"
+  damageonprotected: "&4Attack failed!;&6%player% is protected!" #You can use %player% for the name of the protected Player
+  damagebyprotected: "&4Attack failed!;&6You &aare protected!"
