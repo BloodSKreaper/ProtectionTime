@@ -2,6 +2,6 @@ name: Protectiontime
 version: 1.12
 author: BloodSKreaper
 
-main: me.craftersforever.bloodskreaper.Main
+main: me.chrisochs.protectiontime.Main
 
 commands:
