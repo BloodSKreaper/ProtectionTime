@@ -21,6 +21,7 @@ public class EntityDamageByEntityListener implements Listener{
 		if(e.getDamager() instanceof Player && Main.config.getBoolean("canHarmMobs") == false) {
 			Player p = (Player) e.getDamager();
 			Main.sendMessageToPlayer(p, Main.config.getString("lang.damagebyprotected"));
+			e.setCancelled(true);
 		}
 		
 	}
