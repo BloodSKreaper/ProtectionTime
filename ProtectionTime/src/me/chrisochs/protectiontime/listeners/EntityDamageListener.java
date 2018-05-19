@@ -19,7 +19,8 @@ public class EntityDamageListener implements Listener{
 					EntityDamageByEntityEvent dmgevent = (EntityDamageByEntityEvent) e;
 					if(dmgevent.getDamager() instanceof Player){
 						Player dmger = (Player) dmgevent.getDamager();
-						Main.sendMessageToPlayer(dmger, Main.config.getString("lang.damageonprotected").replaceAll("%player%", p.getName()));
+						if(Main.config.getBoolean("lang.damageonprotected.enabled"))
+						Main.sendMessageToPlayer(dmger, Main.config.getString("lang.damageonprotected.message").replaceAll("%player%", p.getName()));
 					}
 				}
 			}

@@ -14,7 +14,8 @@ public class PlayerRespawnListener implements Listener{
 		Player p = e.getPlayer();
 		if(p.hasPermission("protectiontime.use")){
 			Main.protectionHandler.addProtectedPlayer(new ProtectedPlayer(p.getUniqueId(), Main.getCurrentDate()));
-			Main.sendMessageToPlayer(p, Main.config.getString("lang.cooldownstart").replaceAll("%time%", Main.config.getString("protectiontime")));
+			if(Main.config.getBoolean("lang.cooldownstart.enabled"))
+			Main.sendMessageToPlayer(p, Main.config.getString("lang.cooldownstart.message").replaceAll("%time%", Main.config.getString("protectiontime")));
 		}
 
 

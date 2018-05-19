@@ -22,7 +22,9 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable(){
 		saveDefaultConfig();
 		reloadConfig();
+		new ConfigUpdater(this);
 		config = getConfig();
+		
 		
 	    getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 	    getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
@@ -52,49 +54,49 @@ public class Main extends JavaPlugin implements Listener{
 		ProtectedPlayer result = null;
 		int difference = this.getDifferenceInSeconds(pp.getDate());
 		int zeit = this.getConfig().getInt("protectiontime");
-		if(difference > zeit){
+		if(difference > zeit&& this.getConfig().getBoolean("lang.cooldownended.enabled")){
 			result = protectionHandler.getProtectedPlayer(pp.getUUID());
 			if(this.getServer().getPlayer(pp.getUUID()) != null){
 				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownended"));
+				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownended.message"));
 			}	
-		}else if (difference == zeit){
+		}else if (difference == zeit&& this.getConfig().getBoolean("lang.cooldownending.enabled")){
 			if(this.getServer().getPlayer(pp.getUUID()) != null){
 				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "0"));
-			}	
-			
-		}else if (difference == zeit-1){
-			if(this.getServer().getPlayer(pp.getUUID()) != null){
-				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "1"));
+				Main.sendMessageToPlayer(p, cooldownEnding("0"));
 			}	
 			
-		}else if (difference == zeit-2){
+		}else if (difference == zeit-1&& this.getConfig().getBoolean("lang.cooldownending.enabled")){
 			if(this.getServer().getPlayer(pp.getUUID()) != null){
 				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "2"));
+				Main.sendMessageToPlayer(p, cooldownEnding("1"));
 			}	
-		}else if (difference == zeit-3){
+			
+		}else if (difference == zeit-2&& this.getConfig().getBoolean("lang.cooldownending.enabled")){
 			if(this.getServer().getPlayer(pp.getUUID()) != null){
 				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "3"));
+				Main.sendMessageToPlayer(p, cooldownEnding("2"));
 			}	
-		}else if (difference == zeit-4){
+		}else if (difference == zeit-3&& this.getConfig().getBoolean("lang.cooldownending.enabled")){
 			if(this.getServer().getPlayer(pp.getUUID()) != null){
 				Player p = this.getServer().getPlayer(pp.getUUID());
-				Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "4"));
+				Main.sendMessageToPlayer(p, cooldownEnding("3"));
+			}	
+		}else if (difference == zeit-4&& this.getConfig().getBoolean("lang.cooldownending.enabled")){
+			if(this.getServer().getPlayer(pp.getUUID()) != null){
+				Player p = this.getServer().getPlayer(pp.getUUID());
+				Main.sendMessageToPlayer(p, cooldownEnding("4"));
 				
 			}
-			}else if (difference == zeit-5){
+			}else if (difference == zeit-5 && this.getConfig().getBoolean("lang.cooldownending.enabled")){
 				if(this.getServer().getPlayer(pp.getUUID()) != null){
 					Player p = this.getServer().getPlayer(pp.getUUID());
-					Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldownending").replaceAll("%time%", "5"));
+					Main.sendMessageToPlayer(p, cooldownEnding("5"));
 				}
-			}else if (difference == zeit-10){
+			}else if (difference == zeit-10 && this.getConfig().getBoolean("lang.cooldown10sec.enabled")){
 				if(this.getServer().getPlayer(pp.getUUID()) != null){
 					Player p = this.getServer().getPlayer(pp.getUUID());
-					Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldown10sec").replaceAll("%time%", "10"));
+					Main.sendMessageToPlayer(p, this.getConfig().getString("lang.cooldown10sec.message").replaceAll("%time%", "10"));
 				}	
 			}
 		return result;
@@ -137,6 +139,11 @@ public class Main extends JavaPlugin implements Listener{
 		}else {
 			p.sendMessage(message);
 		}
+	}
+	
+	private String cooldownEnding(String time) {
+		return this.getConfig().getString("lang.cooldownending.message").replaceAll("%time%", time);
+		
 	}
 
 	

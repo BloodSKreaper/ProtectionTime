@@ -7,9 +7,21 @@ canHarmMobs: false
 #You can use Colorcodes: "&"
 #IMPORTANT FOR TITLE OUTPUT (useTitles: true): Use ; to separate the lines
 lang:
-  cooldownstart: "&2Protection time started!;&6%time% seconds!" #You can use %time% for the seconds left
-  cooldown10sec: "&2Time is up soon!;&6%time% seconds left." #You can use %time% for the seconds left
-  cooldownending: "&2Time runs up!;&6%time% seconds left!" #You can use %time% for the seconds left
-  cooldownended: "&4Time is up!;&cYou are now vulnerable!"
-  damageonprotected: "&4Attack failed!;&6%player% is protected!" #You can use %player% for the name of the protected Player
-  damagebyprotected: "&4Attack failed!;&6You &aare protected!"
+  cooldownstart:
+    enabled: true
+    message: '&2Protection time started!;&6%time% seconds!'  #You can use %time% for the seconds left
+  cooldown10sec:
+    enabled: true
+    message: '&2Time is up soon!;&6%time% seconds left.' #You can use %time% for the seconds left
+  cooldownending:
+    enabled: true
+    message: '&2Time runs up!;&6%time% seconds left!' #You can use %time% for the seconds left
+  cooldownended:
+    message: '&4Time is up!;&cYou are now vulnerable!'
+    enabled: true    
+  damageonprotected:
+    enabled: true
+    message: '&4Attack failed!;&6%player% is protected!' #You can use %player% for the name of the protected Player
+  damagebyprotected:
+    enabled: true
+    message: '&4Attack failed!;&6You &aare protected!'
