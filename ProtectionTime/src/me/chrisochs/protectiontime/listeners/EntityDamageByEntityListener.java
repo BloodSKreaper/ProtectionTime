@@ -4,37 +4,64 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-
-import me.chrisochs.protectiontime.Main;
+import me.chrisochs.protectiontime.ProtectionTime;
 
 public class EntityDamageByEntityListener implements Listener {
-	@EventHandler
-	public void onPlayerHitEvent(EntityDamageByEntityEvent e) {
+  private ProtectionTime plugin;
 
-		// Damager and Damaged are Players
-		if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
-			Player p = (Player) e.getDamager();
+  public EntityDamageByEntityListener(ProtectionTime pl) {
+    plugin = pl;
+  }
 
-			if (p.hasPermission("protectiontime.use") && Main.protectionHandler.containsPlayer(p.getUniqueId())) {
-				e.setCancelled(true);
-				if(Main.config.getBoolean("lang.damagebyprotected.enabled"))
-				Main.sendMessageToPlayer(p, Main.config.getString("lang.damagebyprotected.message"));
-			}
-			return;
-		}
-		// Damager is Player
-		if (e.getDamager() instanceof Player && !(e.getEntity() instanceof Player)) {
-			Player p = (Player) e.getDamager();
-			if (p.hasPermission("protectiontime.use") && Main.protectionHandler.containsPlayer(p.getUniqueId())
-					&& e.getDamager() instanceof Player && Main.config.getBoolean("canHarmMobs") == false) {
+  @EventHandler
+  public void onPlayerHitEvent(EntityDamageByEntityEvent e) {
+    // Damager and Damaged are Players
+    if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
+      Player damager = (Player) e.getDamager();
 
-				if(Main.config.getBoolean("lang.damagebyprotected.enabled"))
-				Main.sendMessageToPlayer(p, Main.config.getString("lang.damagebyprotected.message"));
-				e.setCancelled(true);
-			}
-		}
+      if (plugin.getProtectionHandler().containsPlayer(damager.getUniqueId())) {
+        // DAMAGER IS PROTECTED
+        int difference =
+            plugin.getProtectionHandler().getProtectedPlayer(damager.getUniqueId()).getDifference();
+        int protectiontime = plugin.getConfig().getInt("protectiontime");
+        String key = "damagebyprotected";
+        if (plugin.getEntryManager().hasEntry(key)) {
+          plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
+        }
+        e.setCancelled(true);
+        return;
+      }
+      Player damaged = (Player) e.getEntity();
+      if (plugin.getProtectionHandler().containsPlayer(damaged.getUniqueId())) {
+        // DAMAGED IS PROTECTED
+        int difference =
+            plugin.getProtectionHandler().getProtectedPlayer(damaged.getUniqueId()).getDifference();
+        int protectiontime = plugin.getConfig().getInt("protectiontime");
+        String key = "damageonprotected";
+        if (plugin.getEntryManager().hasEntry(key)) {
+          plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
+        }
+        e.setCancelled(true);
+        return;
+
+      }
+    } else if (e.getDamager() instanceof Player && !plugin.getConfig().getBoolean("canHarmMobs")) {
+      Player damager = (Player) e.getDamager();
+      if (!plugin.getProtectionHandler().containsPlayer(damager.getUniqueId()))
+        return;
+      // DAMAGER IS PLAYER AND CANNOT HARM MOBS
+      String key = "damagebyprotected";
+      int difference =
+          plugin.getProtectionHandler().getProtectedPlayer(damager.getUniqueId()).getDifference();
+      int protectiontime = plugin.getConfig().getInt("protectiontime");
+      if (plugin.getEntryManager().hasEntry(key)) {
+        plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
+      }
+      e.setCancelled(true);
+      return;
 
 
-	}
+    }
+  }
 
 }

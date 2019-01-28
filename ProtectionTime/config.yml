@@ -1,27 +1,49 @@
-#Time a player gets protected
+#Time a player is being protected
 protectiontime: 15 #Input in seconds
-#turn useTitles to false if you want to use the chat as output
-useTitles: false
 #Set to true to allow a protected Player to harm mobs and animals
 canHarmMobs: false
-#You can use Colorcodes: "&"
-#IMPORTANT FOR TITLE OUTPUT (useTitles: true): Use ; to separate the lines
+disabledWorlds: #Names of the disabled worlds
+  - Nether
+  - End
+  - Freebuild
+#================================================
+#====================Messages====================
+#All usable placeholders:
+# %name% - Name of the protected player
+# %displayname% - Displayname of the protected player
+# %timeleft% - Left protection time for protected player
+# %time% - Time the protectiontime is being set to (15 in this case)
+#------------------------------------------------
+# Color Codes can be used (e.g. &4 for dark red, &c light red, etc.)
+# Important note for use with titles: Seperate title from subtitle by
+# a semicolon: 'ProtectionTime started;You have %time% seconds to find a safe place'
+# To remove a text just comment it out. Example below at 5s
 lang:
   cooldownstart:
-    enabled: true
-    message: '&2Protection time started!;&6%time% seconds!'  #You can use %time% for the seconds left
-  cooldown10sec:
-    enabled: true
-    message: '&2Time is up soon!;&6%time% seconds left.' #You can use %time% for the seconds left
-  cooldownending:
-    enabled: true
-    message: '&2Time runs up!;&6%time% seconds left!' #You can use %time% for the seconds left
+    useTitles: true
+    text: '%time% seconds started! Hide yourself or run!'
   cooldownended:
-    message: '&4Time is up!;&cYou are now vulnerable!'
-    enabled: true    
+    useTitles: true
+    text: 'Oh No: You are no longer protected from damage :O'
   damageonprotected:
-    enabled: true
-    message: '&4Attack failed!;&6%player% is protected!' #You can use %player% for the name of the protected Player
+    useTitles: true
+    text: '&4Attack failed!;&6%player% is protected!'
   damagebyprotected:
-    enabled: true
-    message: '&4Attack failed!;&6You &aare protected!'
+    useTitles: true
+    text: '&4Attack failed!;&6You &aare protected!'
+    
+  #Just add more times if you want
+  1: #1s left
+    useTitles: true
+    text: '&4Only %timeleft% second left!;&cWatch out!'
+#====The following message is commented out====
+# 5: #5s left
+#   useTitles: true
+#   text: 'Only %timeleft% seconds left.'
+  10: #10s left
+    useTitles: true
+    text: '%timeleft%/%time% seconds left'
+
+#================================================
+#DO NOT TOUCH THIS
+configversion: 1 #Do not even think about it
