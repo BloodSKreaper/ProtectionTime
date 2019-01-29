@@ -4,22 +4,20 @@ import java.util.Date;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import fr.xephi.authme.events.LoginEvent;
 import me.chrisochs.protectiontime.ProtectedPlayer;
 import me.chrisochs.protectiontime.ProtectionTime;
 
-public class PlayerJoinListener implements Listener {
+public class AuthMeListener implements Listener {
   private ProtectionTime plugin;
 
-  public PlayerJoinListener(ProtectionTime pl) {
+  public AuthMeListener(ProtectionTime pl) {
     plugin = pl;
   }
 
   @EventHandler
-  public void onJoin(PlayerJoinEvent e) {
-    if (ProtectionTime.usesAuthMe)
-      return;
-    Player p = e.getPlayer();
+  public void onLogin(LoginEvent event) {
+    Player p = event.getPlayer();
     if (p.hasPermission("protectiontime.use")) {
       if (plugin.getConfig().getStringList("disabledWorlds").contains(p.getWorld().getName()))
         return;
@@ -32,5 +30,6 @@ public class PlayerJoinListener implements Listener {
       plugin.sendMessageToPlayer(p.getUniqueId(), key, protectiontime - difference);
 
     }
+
   }
 }

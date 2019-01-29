@@ -27,9 +27,8 @@ public class PlayerRespawnListener implements Listener {
           plugin.getProtectionHandler().getProtectedPlayer(p.getUniqueId()).getDifference();
       int protectiontime = plugin.getConfig().getInt("protectiontime");
       String key = "cooldownstart";
-      if (plugin.getEntryManager().hasEntry(key)) {
-        plugin.sendMessageToPlayer(p.getUniqueId(), key, protectiontime - difference);
-      }
+      plugin.sendMessageToPlayer(p.getUniqueId(), key, protectiontime - difference);
+
     }
   }
 

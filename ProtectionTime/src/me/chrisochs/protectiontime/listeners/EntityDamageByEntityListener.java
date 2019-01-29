@@ -15,6 +15,8 @@ public class EntityDamageByEntityListener implements Listener {
 
   @EventHandler
   public void onPlayerHitEvent(EntityDamageByEntityEvent e) {
+    if (e.isCancelled())
+      return;
     // Damager and Damaged are Players
     if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
       Player damager = (Player) e.getDamager();
@@ -25,9 +27,7 @@ public class EntityDamageByEntityListener implements Listener {
             plugin.getProtectionHandler().getProtectedPlayer(damager.getUniqueId()).getDifference();
         int protectiontime = plugin.getConfig().getInt("protectiontime");
         String key = "damagebyprotected";
-        if (plugin.getEntryManager().hasEntry(key)) {
-          plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
-        }
+        plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
         e.setCancelled(true);
         return;
       }
@@ -38,9 +38,7 @@ public class EntityDamageByEntityListener implements Listener {
             plugin.getProtectionHandler().getProtectedPlayer(damaged.getUniqueId()).getDifference();
         int protectiontime = plugin.getConfig().getInt("protectiontime");
         String key = "damageonprotected";
-        if (plugin.getEntryManager().hasEntry(key)) {
-          plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
-        }
+        plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
         e.setCancelled(true);
         return;
 
@@ -54,9 +52,8 @@ public class EntityDamageByEntityListener implements Listener {
       int difference =
           plugin.getProtectionHandler().getProtectedPlayer(damager.getUniqueId()).getDifference();
       int protectiontime = plugin.getConfig().getInt("protectiontime");
-      if (plugin.getEntryManager().hasEntry(key)) {
-        plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
-      }
+      plugin.sendMessageToPlayer(damager.getUniqueId(), key, protectiontime - difference);
+
       e.setCancelled(true);
       return;
 

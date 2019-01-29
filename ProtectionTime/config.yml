@@ -2,6 +2,7 @@
 protectiontime: 15 #Input in seconds
 #Set to true to allow a protected Player to harm mobs and animals
 canHarmMobs: false
+useAuthMe: false #Only works with plugin AuthMe installed.
 disabledWorlds: #Names of the disabled worlds
   - Nether
   - End
@@ -27,7 +28,7 @@ lang:
     text: 'Oh No: You are no longer protected from damage :O'
   damageonprotected:
     useTitles: true
-    text: '&4Attack failed!;&6%player% is protected!'
+    text: '&4Attack failed!;&6%name% is protected!'
   damagebyprotected:
     useTitles: true
     text: '&4Attack failed!;&6You &aare protected!'
@@ -46,4 +47,4 @@ lang:
 
 #================================================
 #DO NOT TOUCH THIS
-configversion: 1 #Do not even think about it
+configversion: 0 #Do not even think about it
